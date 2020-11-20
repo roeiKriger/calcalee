@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> Calcalee </title>
+    <link rel="stylesheet" href="parallax.css" /> <!--my css-->
+    <link rel="stylesheet" href="StyleSheet1.css">
+
+    <!--libraries used-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="scriptForApi.js"></script>
+
+    <!--bootstrap libs-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myModaOfInstructions").modal('show');
+        });
+    </script>
+</head>
+
+<body>
+    <!-- this is my toolbar-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Calcalee</a>
+            </div> <!-- the toolbar can 'send' you to differet divs by clicking on it-->
+            <ul class="nav navbar-nav">
+                <a data-target="#myModaOfInstructions" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> <li class="navbar-brand">Instructions</li> </a>
+                <a data-target="#myModalOfClarifications" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> <li class="navbar-brand">Clarifications</li> </a>
+                <a href="#div2"> <li class="navbar-brand">Search Detailes</li> </a>
+                <a href="#div1"> <li class="navbar-brand">Search Stock</li> </a>
+                <a data-target="#myModalOfAbout" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> <li class="navbar-brand">About</li> </a>
+            </ul>
+        </div>
+    </nav>
+   
+    <div id="div1" class="par">
+        <br /><br /> <br />     
+        <!-- Modal ----------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="modal fade" id="myModalOfClarifications" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal of clarifications-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Clarifications</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Please note that the information provided on the website should not be
+                            construed as investment advice or as recommendation to buy, sell or invest in any stock.
+                            <br />
+                            The website's owner shall not be responsible for any profit or loss of the visitors.
+
+                        </p>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal2 ----------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="modal fade" id="myModaOfInstructions" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal of Instructions-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Instructions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            In the first section, we can search for stocks symbols, even if we do not remember the symbol name.
+                            In the second section, the search will be with the full and correct symbol name.
+                            In order to look for Microsoft stock, we will use the next symbol: MSFT (can search in lower case as well).
+                            <br />
+                            The details are taken from alphavantage. The API allows to conduct up to 2 searches in a minute.
+
+                        </p>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------------------------------->
+        <!-- Modal3 ----------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="modal fade" id="myModalOfAbout" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal of About the website-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> In order to create this website, the following technologies were used:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <ul>
+                                <li> JavaScript </li>
+                                <li> Json </li>
+                                <li> Visual Studio </li>
+                                <li> D3 library </li>
+                                <li> Rapid API alpha vantage </li>
+                            </ul>
+
+                        </p>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="row">
+            <div class="col-xs-3 col-md-1">
+            </div>
+            <div class="col-xs-11 col-md-9">
+                <form id="f1">
+                    <label style="color:white" for="inst">In case you don't remeber the stock's name, enter here the first letter (or letters), and we will show you list of the stocks you might look for</label>
+                </form>
+            </div>
+        </div>
+        <!--      *     *      *      *     *      *       *        *       *           *         *         *          *         *         *      -->
+        <br /> <!-- In this div I have a search by letter API request, which will be filling up select option with my javascript function-->
+        <div class="row">
+            <div class="col-xs-3 col-md-1"> </div>
+            <div class="col-xs-6 col-md-4">
+                <form id="f2">
+                    <input id="searchMore1" style="height:48px;font-size:18pt;" size="20" type="text" name="stock2" placeholder="Search by letters..." />
+                    <button type="button" class="btn btn-primary" style="height:42px;font-size:18pt;" size="15" onClick="doSearchByLetters(searchMore1.value)"> Search </button>
+
+                </form>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-3 col-md-1"> </div>
+            <form id="f3">
+                <div class="col-xs-3 col-md-1">
+                    <select style="height:20px;font-size:11pt;background-color:gray;color:antiquewhite;border-color:black;" id="selectStock">
+                        <option>My stocks are:</option>
+                    </select>
+                </div>
+                <div class="col-xs-4 col-md-2">
+                    <label id="myLbl" style="color:white; visibility:hidden;" for="inst">Now after finding your desired stock, search details on it<a href="#div2"> below!</a></label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--          *              *              *                 *                  *                   *                   *                    *           *-->
+    <!-- In here I have my second search, which is by full and real -->
+    <div id="div2" class="par">
+        <br /><br />
+        <div class="row">
+            <div class="col-xs-3 col-md-1">
+            </div>
+            <div class="table-responsive">               
+                <table dir="ltr">
+                    <tr>
+                        <td class="tdSearch2">
+                            <form id="topLeftForm">
+                                <!-- I divided the screen to 4 different td, in the first top two I can do a search-->
+                                <div id="topLeft1">
+                                    <!--top left div-->
+                                    <input id="topRightSearch" onkeypress="return tableInputKeyPress(event)" size="13" style="vertical-align:top" type="text" name="stock" placeholder="Stock's name...">
+                                    <button type="button" style="vertical-align:top; height:35px" class="buttonSearch" onClick="doSearch1(topRightSearch.value, 'topLeft1')"> Search </button>
+                                </div>
+                            </form>
+                        </td>
+                        <!--      *     *      *      *     *      *       *        *       *           *         *         *          *         *         *      -->
+                        <td class="tdSearch2">
+                            <form id="topRightForm">
+                                <div id="topLeft2">
+                                    <input id="topLeftSearch" onkeypress="return tableInputKeyPress(event)" size="13" style="vertical-align:top" type="text" name="stock" placeholder="Stock's name...">
+                                    <button type="button" style="vertical-align:top; height:35px" class="buttonSearch" onClick="doSearch2(topLeftSearch.value, 'topLeft2')"> Search </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!--      *     *      *      *     *      *       *        *       *           *         *         *          *         *         *      -->
+                    <!-- here I have canvas so I can draw my charts -->
+                    <tr>
+                        <td class="tdGraph">
+                            <canvas id="chart1" width="400" height="270"> </canvas>
+                        </td>
+                        <!--      *     *      *      *     *      *       *        *       *           *         *         *          *         *         *      -->
+                        <td class="tdGraph">
+                            <canvas id="chart2" width="400" height="270"> </canvas>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br /> 
+    </div>
+
+   
+    <footer>
+        <small>&copy; Roei Kriger, 2020</small>
+    </footer>
+
+
+    <script type="text/javascript">
+        function tableInputKeyPress(e) //this is the function I use on my 4 forms, in order to know what was written by the user
+        {
+            e = e || window.event;
+            var key = e.keyCode;
+            if (key == 13) //Enter
+            {
+                e.preventDefault(); return false;
+                //return true to submit, false to do nothing
+            }
+        }
+    </script>
+
+ 
+
+</body>
+</html>
