@@ -1,5 +1,5 @@
 # calcalee
-Personal project to improve skills and learn new ones.
+Side project to improve skills and learn new ones.
 The skills I used and improved are:
 Javascript,
 Json files,
