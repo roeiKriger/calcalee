@@ -1,4 +1,4 @@
-# calcalee
+# Calcalee
 Side project in web developing.
 
 The site integrates with an API of the stock market in U.S.
